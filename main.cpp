@@ -1,14 +1,9 @@
 #include <iostream>
-#include "gaussian_mixture_model.hpp"
+#include "gaussian_mixture_models.hpp"
 
 #include <fstream>
 #include <string>
 #include <sstream>
-
-//3 cluster must be -2 -2 -2 & 0 0 0 & 2 2 2
-
-
-
 
 
 void test_1D_gmm(){
@@ -17,9 +12,9 @@ void test_1D_gmm(){
     Eigen::MatrixXf data(NUMBER_POINTS,1);
     std::random_device dev;
     std::mt19937 rng(dev());
-    std::normal_distribution<float> distribution_1(0.,1.0);
-    std::normal_distribution<float> distribution_2(2.,1.0);
-    std::normal_distribution<float> distribution_3(-2.,1.0);
+    std::normal_distribution<float> distribution_1(0.,0.5);
+    std::normal_distribution<float> distribution_2(2.,0.5);
+    std::normal_distribution<float> distribution_3(-2.,0.5);
 
     std::uniform_int_distribution<> k(0,2);
 
@@ -32,8 +27,8 @@ void test_1D_gmm(){
         else if(val == 2)
             data.row(i) << distribution_3(rng);
     }
-    gmm::GaussianMixtureModel gmm_ (gmm::CovarianceTypes::FULL, 3, 10000);
-    gmm_.fit(data,100);
+    gmm::GaussianMixtureModel gmm_ (gmm::CovarianceTypes::FULL, 3, 100);
+    gmm_.fit(data,1000);
 }
 
 void test_gmm_from_load_data(std::string path, int dim){

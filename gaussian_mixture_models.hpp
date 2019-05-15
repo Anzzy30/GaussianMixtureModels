@@ -207,10 +207,7 @@ namespace gmm{
                 }
                 responses = (responses.array()) / responses.rowwise().sum().array().replicate(1,responses.cols());
                 ll = responses.array().log().sum();
-                if(std::isnan(ll) ){
-                    std::cerr << "Error maybe not positive definite covariance matrix " <<std::endl;
-                    return;
-                }
+
                 if(std::abs(ll - prev_ll) < 1e-4){
                     std::cout << "Converged at iterationn: " << iter <<std::endl;
                     break;
